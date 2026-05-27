@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Lilly — from Jay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #f0e6d8;
+    --gold: #c9a96e;
+    --gold-light: #e8d5b0;
+    --dark: #080608;
+    --dark2: #110e13;
+    --dark3: #1a1520;
+    --blush: #c97090;
+    --rose: #a04060;
+    --text: #d8ccd8;
+    --muted: #786878;
+    --purple: #3d2a4a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── STARS ── */
+  #stars {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.1; transform: scale(1); }
+    50%      { opacity: 0.8; transform: scale(1.3); }
+  }
+
+  /* ── PETALS ── */
+  #petals {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .petal {
+    position: absolute; top: -60px;
+    border-radius: 50% 0 50% 0;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); opacity:0; }
+    5%   { opacity:.6; }
+    95%  { opacity:.3; }
+    100% { transform: translateY(110vh) rotate(540deg) scale(.5); opacity:0; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(8,6,8,.95) 0%, transparent 100%);
+  }
+  nav .logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem; color: var(--blush);
+  }
+  nav ul { list-style:none; display:flex; gap:28px; }
+  nav ul li a {
+    color: rgba(201,112,144,.6);
+    text-decoration: none; font-size:.7rem;
+    letter-spacing:3px; text-transform:uppercase; transition:color .3s;
+  }
+  nav ul li a:hover { color: var(--blush); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; overflow:hidden; z-index:1;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse at 50% 35%, #2a0e1e 0%, #160a18 40%, #080608 100%);
+  }
+  .hero-content {
+    position:relative; z-index:2;
+    animation: heroIn 2s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes heroIn {
+    from { opacity:0; transform:translateY(50px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color: var(--blush); margin-bottom:28px; opacity:.7;
+    animation: heroIn 2s .3s both;
+  }
+  .hero-names {
+    font-family:'Great Vibes', cursive;
+    font-size: clamp(5rem,13vw,11rem);
+    line-height:1; color: var(--cream);
+    text-shadow: 0 0 100px rgba(201,112,144,.25);
+    animation: heroIn 2s .4s both;
+  }
+  .hero-amp {
+    color: var(--blush);
+    animation: heartbeat 2.5s ease-in-out infinite;
+    display:inline-block;
+  }
+  @keyframes heartbeat {
+    0%,100%{ transform:scale(1); }
+    15%    { transform:scale(1.2); }
+    30%    { transform:scale(1); }
+    45%    { transform:scale(1.1); }
+    60%    { transform:scale(1); }
+  }
+  .hero-sub {
+    margin-top:28px; font-size:.8rem; letter-spacing:4px;
+    color:var(--muted); text-transform:uppercase;
+    animation: heroIn 2s .7s both;
+  }
+  .hero-sub span { color:var(--blush); opacity:.7; }
+  .scroll-hint {
+    position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    color:var(--muted); font-size:.62rem; letter-spacing:3px; text-transform:uppercase;
+    animation: heroIn 2s 1.4s both;
+  }
+  .scroll-hint span {
+    width:1px; height:40px;
+    background:linear-gradient(to bottom, var(--blush), transparent);
+    animation: scrollLine 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100%{ opacity:0; transform:scaleY(0); transform-origin:top; }
+    50%    { opacity:1; transform:scaleY(1); }
+  }
+
+  /* ── COUNTER ── */
+  #counter {
+    position:relative; z-index:1;
+    padding:80px 40px;
+    background:var(--dark2);
+    text-align:center;
+    border-top:1px solid rgba(201,112,144,.08);
+    border-bottom:1px solid rgba(201,112,144,.08);
+  }
+  .counter-label {
+    font-size:.68rem; letter-spacing:5px;
+    text-transform:uppercase; color:var(--blush); margin-bottom:8px;
+  }
+  .counter-sublabel {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-size:1.1rem;
+    color:var(--muted); margin-bottom:36px;
+  }
+  .counter-grid {
+    display:flex; justify-content:center;
+    gap:clamp(20px,5vw,72px); flex-wrap:wrap;
+  }
+  .counter-unit { text-align:center; }
+  .counter-number {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3rem,8vw,6rem);
+    font-weight:300; color:var(--cream); line-height:1; display:block;
+  }
+  .counter-unit-label {
+    font-size:.62rem; letter-spacing:4px;
+    text-transform:uppercase; color:var(--muted); margin-top:8px;
+  }
+  .counter-dot {
+    font-family:'Cormorant Garamond',serif;
+    font-size:4rem; color:var(--dark3); align-self:center; line-height:1;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header { text-align:center; margin-bottom:60px; }
+  .section-eyebrow {
+    font-size:.64rem; letter-spacing:5px;
+    text-transform:uppercase; color:var(--blush); margin-bottom:16px; opacity:.8;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.2rem,5vw,4rem);
+    font-weight:300; font-style:italic; color:var(--cream); line-height:1.1;
+  }
+  .section-line {
+    width:50px; height:1px;
+    background:linear-gradient(to right, transparent, var(--blush), transparent);
+    margin:22px auto 0;
+  }
+
+  /* ── PHOTOS ── */
+  #photos {
+    position:relative; z-index:1;
+    padding:100px 40px;
+    max-width:1400px; margin:0 auto;
+  }
+  .photo-grid { columns:4 260px; gap:10px; }
+  .photo-item {
+    break-inside:avoid; margin-bottom:10px;
+    position:relative; overflow:hidden;
+    cursor:pointer; border-radius:2px;
+  }
+  .photo-item img {
+    width:100%; display:block;
+    transition:transform .7s cubic-bezier(.4,0,.2,1), filter .5s;
+    filter:brightness(.8) saturate(.7) sepia(.15);
+  }
+  .photo-item:hover img {
+    transform:scale(1.07);
+    filter:brightness(.95) saturate(1) sepia(0);
+  }
+  .photo-item::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to bottom, transparent 40%, rgba(8,6,8,.6) 100%);
+    opacity:0; transition:opacity .4s;
+  }
+  .photo-item:hover::after { opacity:1; }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,.97); z-index:999;
+    align-items:center; justify-content:center; padding:20px;
+  }
+  #lightbox.open { display:flex; }
+  #lightbox img {
+    max-width:90vw; max-height:90vh;
+    object-fit:contain; border-radius:2px;
+    box-shadow:0 0 80px rgba(0,0,0,.9);
+  }
+  .lb-close {
+    position:fixed; top:24px; right:32px;
+    color:var(--cream); font-size:2rem; cursor:pointer;
+    opacity:.5; transition:opacity .2s;
+    background:none; border:none; z-index:1000;
+  }
+  .lb-close:hover { opacity:1; }
+  .lb-nav {
+    position:fixed; top:50%; transform:translateY(-50%);
+    color:var(--cream); font-size:2.5rem; cursor:pointer;
+    opacity:.4; transition:opacity .2s;
+    background:none; border:none; z-index:1000; padding:20px;
+  }
+  .lb-nav:hover { opacity:1; }
+  .lb-prev { left:8px; }
+  .lb-next { right:8px; }
+
+  /* ── LETTER ── */
+  #letter {
+    position:relative; z-index:1;
+    padding:120px 40px;
+    background: var(--dark2);
+    text-align:center;
+  }
+  .letter-wrap {
+    max-width:680px; margin:0 auto;
+    background: linear-gradient(135deg, rgba(42,14,30,.6) 0%, rgba(26,21,32,.8) 100%);
+    border:1px solid rgba(201,112,144,.12);
+    border-radius:4px;
+    padding: clamp(40px, 6vw, 80px) clamp(28px,5vw,72px);
+    position:relative;
+    box-shadow: 0 0 80px rgba(201,112,144,.04), inset 0 0 60px rgba(0,0,0,.3);
+  }
+  .letter-wrap::before {
+    content:'';
+    position:absolute; top:-1px; left:10%; right:10%; height:1px;
+    background:linear-gradient(to right, transparent, var(--blush), transparent);
+  }
+  .letter-wrap::after {
+    content:'';
+    position:absolute; bottom:-1px; left:10%; right:10%; height:1px;
+    background:linear-gradient(to right, transparent, var(--blush), transparent);
+  }
+  .letter-tag {
+    font-size:.62rem; letter-spacing:5px; text-transform:uppercase;
+    color:var(--blush); opacity:.6; margin-bottom:32px; display:block;
+  }
+  .letter-dear {
+    font-family:'Great Vibes', cursive;
+    font-size:clamp(2rem,5vw,3.2rem);
+    color:var(--cream); margin-bottom:32px; line-height:1.2;
+  }
+  .letter-body {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.05rem,2.2vw,1.35rem);
+    line-height:2; color:var(--text);
+    font-weight:300; text-align:left;
+    opacity:.9;
+  }
+  .letter-body p + p { margin-top:24px; }
+  .letter-sign {
+    margin-top:48px; text-align:right;
+    font-family:'Great Vibes', cursive;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    color:var(--blush);
+    line-height:1.5;
+  }
+  .letter-sign small {
+    display:block; font-family:'Jost',sans-serif;
+    font-size:.62rem; letter-spacing:3px;
+    text-transform:uppercase; color:var(--muted);
+    margin-top:6px; font-style:normal;
+  }
+
+  /* ── VIDEOS ── */
+  #videos {
+    position:relative; z-index:1;
+    padding:100px 40px;
+    max-width:1400px; margin:0 auto;
+  }
+  .video-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+    gap:16px;
+  }
+  .video-card {
+    position:relative;
+    background:var(--dark3);
+    border-radius:4px; overflow:hidden;
+    border:1px solid rgba(201,112,144,.07);
+    transition:border-color .3s, transform .4s;
+  }
+  .video-card:hover {
+    border-color:rgba(201,112,144,.22);
+    transform:translateY(-5px);
+  }
+  .video-thumb {
+    width:100%; aspect-ratio:16/9;
+    position:relative; overflow:hidden; cursor:pointer;
+    background:var(--dark);
+  }
+  .video-overlay {
+    position:absolute; inset:0;
+    background:rgba(8,6,8,.5);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .3s;
+  }
+  .video-overlay:hover { background:rgba(8,6,8,.15); }
+  .play-btn {
+    width:58px; height:58px;
+    background:rgba(201,112,144,.85);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s, background .3s;
+  }
+  .video-overlay:hover .play-btn {
+    transform:scale(1.12); background:var(--blush);
+  }
+  .play-btn svg { fill:var(--dark); width:20px; height:20px; margin-left:4px; }
+  .video-label {
+    padding:14px 16px;
+    font-size:.68rem; letter-spacing:2px;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ── VIDEO MODAL ── */
+  #video-modal {
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,.97); z-index:999;
+    align-items:center; justify-content:center; padding:20px;
+  }
+  #video-modal.open { display:flex; }
+  .vm-inner {
+    width:min(90vw,960px); aspect-ratio:16/9; position:relative;
+  }
+  .vm-inner iframe {
+    width:100%; height:100%; border:none; border-radius:4px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position:relative; z-index:1;
+    padding:80px 40px 60px; text-align:center;
+    border-top:1px solid rgba(201,112,144,.08);
+    background:var(--dark);
+  }
+  .footer-names {
+    font-family:'Great Vibes',cursive;
+    font-size:3.2rem; color:var(--blush); margin-bottom:14px;
+  }
+  .footer-sub {
+    font-size:.62rem; letter-spacing:5px;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .footer-hearts {
+    margin-top:36px; font-size:1.1rem;
+    color:var(--rose); opacity:.35;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity:0; transform:translateY(28px);
+    transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px){
+    nav ul { display:none; }
+    nav { padding:16px 20px; }
+    #photos,#videos { padding:70px 14px; }
+    .photo-grid { columns:2 130px; }
+    .video-grid { grid-template-columns:1fr 1fr; }
+    #letter { padding:80px 20px; }
+    #counter { padding:60px 20px; }
+    .counter-dot { display:none; }
+  }
+  @media(max-width:480px){
+    .video-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<div id="petals"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Jay & Lilly</div>
+  <ul>
+    <li><a href="#photos">Memories</a></li>
+    <li><a href="#letter">My Letter</a></li>
+    <li><a href="#videos">Moments</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A letter, a gallery, a heart</p>
+    <h1 class="hero-names">
+      Jay <span class="hero-amp">♥</span> Lilly
+    </h1>
+    <p class="hero-sub">Together since <span>March 26, 2026</span></p>
+  </div>
+  <div class="scroll-hint">scroll <span></span></div>
+</section>
+
+<!-- COUNTER -->
+<section id="counter">
+  <p class="counter-label reveal">We've had</p>
+  <p class="counter-sublabel reveal">Every second of this counted</p>
+  <div class="counter-grid reveal">
+    <div class="counter-unit">
+      <span class="counter-number" id="c-days">000</span>
+      <span class="counter-unit-label">Days</span>
+    </div>
+    <div class="counter-dot">·</div>
+    <div class="counter-unit">
+      <span class="counter-number" id="c-hours">00</span>
+      <span class="counter-unit-label">Hours</span>
+    </div>
+    <div class="counter-dot">·</div>
+    <div class="counter-unit">
+      <span class="counter-number" id="c-mins">00</span>
+      <span class="counter-unit-label">Minutes</span>
+    </div>
+    <div class="counter-dot">·</div>
+    <div class="counter-unit">
+      <span class="counter-number" id="c-secs">00</span>
+      <span class="counter-unit-label">Seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section id="photos">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Photo Gallery</p>
+    <h2 class="section-title">What we had — what I miss</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="photo-grid" id="photo-grid"></div>
+</section>
+
+<!-- LETTER -->
+<section id="letter">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">From my heart</p>
+    <h2 class="section-title">A letter to you</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="letter-wrap reveal">
+    <span class="letter-tag">written by Jay, for Lilly</span>
+    <div class="letter-dear">My dear Lilian,</div>
+    <div class="letter-body">
+      <p>
+        I never planned for this to become an apology — I started building this for us,
+        because you deserve something beautiful. But here we are, and maybe this is
+        exactly what it was always meant to be.
+      </p>
+      <p>
+        I made you go through things you never should have. I made your life harder
+        because of my own wrong decisions, and I can't pretend otherwise. I'm not going
+        to dress it up. What I did was wrong, and you didn't deserve any of it.
+      </p>
+      <p>
+        What I can tell you is what happened after. The moment I realized what I was
+        risking, I let go of everything that wasn't you. I cut off what needed to be cut.
+        I chose loyalty — not because I had to, but because there was never actually
+        a choice when it came to you.
+      </p>
+      <p>
+        Since that day, I haven't had eyes for anyone else. I am attached to you in a
+        way I can't explain and don't want to. You're in everything I do. You're why
+        I built this — every photo, every video, every memory — because losing you made
+        me realize how full life was when you were in it.
+      </p>
+      <p>
+        I know sorry isn't enough on its own. I know words are easy. But I'm asking you
+        to look at us — look at these memories — and consider that what we have is rare.
+        If you give me another chance, I will spend every day making sure you never
+        question my loyalty again. I promise you won't regret it.
+      </p>
+      <p>
+        I love you, Lilian. I always will. And I'll wait.
+      </p>
+    </div>
+    <div class="letter-sign">
+      your Jay
+      <small>— always yours, even now</small>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Video Gallery</p>
+    <h2 class="section-title">Our moments, still alive</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="video-grid" id="video-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-names">Jay & Lilly</div>
+  <p class="footer-sub">Since March 26, 2026 · Forever in my heart</p>
+  <div class="footer-hearts">♥ ♥ ♥</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+  <img id="lb-img" src="" alt="Memory"/>
+  <button class="lb-nav lb-next" id="lb-next">›</button>
+</div>
+
+<!-- VIDEO MODAL -->
+<div id="video-modal">
+  <button class="lb-close" id="vm-close">✕</button>
+  <div class="vm-inner">
+    <iframe id="vm-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+/* ── STARS ── */
+(function(){
+  const c = document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const size=(Math.random()*2+.5)+'px';
+    s.style.cssText=`
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${size}; height:${size};
+      animation-duration:${2+Math.random()*4}s;
+      animation-delay:${Math.random()*5}s;
+    `;
+    c.appendChild(s);
+  }
+})();
+
+/* ── PETALS ── */
+(function(){
+  const c=document.getElementById('petals');
+  const colors=['#c97090','#a04060','#e090b0','#803050'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='petal';
+    const w=(7+Math.random()*9)+'px';
+    p.style.cssText=`
+      left:${Math.random()*100}vw;
+      width:${w}; height:${(parseFloat(w)*1.4)}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${9+Math.random()*13}s;
+      animation-delay:${Math.random()*16}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+/* ── COUNTER ── */
+(function(){
+  const start=new Date('2026-03-26T00:00:00');
+  function tick(){
+    const diff=Math.max(0,Date.now()-start);
+    document.getElementById('c-days').textContent=String(Math.floor(diff/86400000)).padStart(3,'0');
+    document.getElementById('c-hours').textContent=String(Math.floor(diff/3600000)%24).padStart(2,'0');
+    document.getElementById('c-mins').textContent=String(Math.floor(diff/60000)%60).padStart(2,'0');
+    document.getElementById('c-secs').textContent=String(Math.floor(diff/1000)%60).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ── PHOTOS ── */
+const photoIds=[
+  '1tM06t_SB5kZiUsImxki-2ExhLZaT6MkU','15rC_Z_L7qGb0dorsNqH7qnNIX4aFImRo',
+  '1FNk_r1W57qusUMMTHWA62eeolHyr4yLg','1G62KDDYXWJZmLnn9jy5a9Xcf5txrsZkc',
+  '10Q_JVRD9YdfGO2FSlW6t0TJOJO7yqG_Q','1UMblG6S3Z-eDrJ2wBrj4tKf0kx-NNKSD',
+  '1AIG0M_JqMsN0AQePBeuh6cdTO7Vc663G','1u6rsZ3Y5me_4cK5kZKR1NrSboH-S3ymU',
+  '1xshatcBskSKLZyiT7caR_Ni0UetVRUsr','1-sK6V_hIUJcmqRMltQKz1qGUMHhA2Mny',
+  '1QAnXSjfkJg1ZMqPEHXUPXwgm7sZrmxsl','1Zkh0VbN8iT2kGJXIZzitakYewkIDHOA7',
+  '1DnsMII3sdK0PesAHb_jJijdgM8tJiBoN','1Zi_o7judL-xt-ljxuX0Fmqph2GNvnaRm',
+  '11KFvokXsc7ioqVMxa2dfE_ucrQMCGUSy','1BHCwLEiQfWurj4mNNVrPQU5yKe6o1swm',
+  '1s9wutcFyW_2cozWDi5BKW9og5W_5Wrk2'
+];
+(function(){
+  const grid=document.getElementById('photo-grid');
+  photoIds.forEach((id,i)=>{
+    const item=document.createElement('div');
+    item.className='photo-item';
+    const img=document.createElement('img');
+    img.src=`https://lh3.googleusercontent.com/d/${id}`;
+    img.alt=`Memory ${i+1}`; img.loading='lazy';
+    item.appendChild(img);
+    item.addEventListener('click',()=>openLB(i));
+    grid.appendChild(item);
+  });
+})();
+
+/* ── LIGHTBOX ── */
+let curPhoto=0;
+function openLB(i){
+  curPhoto=i;
+  document.getElementById('lb-img').src=`https://lh3.googleusercontent.com/d/${photoIds[i]}`;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('lb-close').onclick=closeLB;
+document.getElementById('lb-prev').onclick=()=>{
+  curPhoto=(curPhoto-1+photoIds.length)%photoIds.length;
+  document.getElementById('lb-img').src=`https://lh3.googleusercontent.com/d/${photoIds[curPhoto]}`;
+};
+document.getElementById('lb-next').onclick=()=>{
+  curPhoto=(curPhoto+1)%photoIds.length;
+  document.getElementById('lb-img').src=`https://lh3.googleusercontent.com/d/${photoIds[curPhoto]}`;
+};
+document.getElementById('lightbox').addEventListener('click',e=>{
+  if(e.target===document.getElementById('lightbox')) closeLB();
+});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLB();
+  if(e.key==='ArrowLeft') document.getElementById('lb-prev').click();
+  if(e.key==='ArrowRight') document.getElementById('lb-next').click();
+});
+
+/* ── VIDEOS ── */
+const videoIds=[
+  '1jSWGk_1nxxbBPo7AnTJyE6VPQEEgsapF','1R4k13pSQJ4bFLCcmrsQ-bm3w7BojzOQu',
+  '1KAy5smTmKOoN5riUhZdcDF811wqJy00g','1SImI7zllaad1U2ml74sGOz9dsrojSaQ5',
+  '1YBX85QZKZ4X_L260YrNxv8OBvWX8iwNw','1cipTib2KUJ62UvoqbraGJ_N88Cf3ss6N',
+  '1EJJfWnrfS3da4375C55mYj682XoB2sC5','1_3884peLKls-ucNIDLzfZik-TFmBpioQ',
+  '1Hs_q5LmXbUqzbWUH9jfxLU_SraXNPvVh','11PW7qiM344jnu4Acw1T_m_O4q_3Yl91g',
+  '1d0_IL58odfi7X_wRlfzyfj56O_QGAEVf','1X-YYNeOcGnsm8iWubCA-n94zSRNdcjTC',
+  '1MPabJPxHQvC6T9zUm0kYv5g-vAsO4e9i','1Y1b0xpnLR993LaPkWCosuUEtIh-cIgd-',
+  '1EwEN5z8OoZoTMX_pQIj7X7sLFtjpvp2X'
+];
+(function(){
+  const grid=document.getElementById('video-grid');
+  videoIds.forEach((id,i)=>{
+    const card=document.createElement('div');
+    card.className='video-card';
+    const thumb=document.createElement('div');
+    thumb.className='video-thumb';
+    const ov=document.createElement('div');
+    ov.className='video-overlay';
+    ov.innerHTML='<div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>';
+    ov.addEventListener('click',()=>openVM(id));
+    thumb.appendChild(ov);
+    const lbl=document.createElement('div');
+    lbl.className='video-label';
+    lbl.textContent=`Moment ${i+1}`;
+    card.appendChild(thumb); card.appendChild(lbl);
+    grid.appendChild(card);
+  });
+})();
+
+/* ── VIDEO MODAL ── */
+function openVM(id){
+  document.getElementById('vm-iframe').src=`https://drive.google.com/file/d/${id}/preview`;
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVM(){
+  document.getElementById('vm-iframe').src='';
+  document.getElementById('video-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('vm-close').onclick=closeVM;
+document.getElementById('video-modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('video-modal')) closeVM();
+});
+
+/* ── SCROLL REVEAL ── */
+(function(){
+  const els=document.querySelectorAll('.reveal');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  },{threshold:.1});
+  els.forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>
